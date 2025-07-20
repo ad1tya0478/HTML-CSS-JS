@@ -1,0 +1,48 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=devicewidth, initial-scale=1.0">
+ <title>Question 4</title>
+ <style>
+ .container{ display: grid; }
+ Input{ width: 250px;}
+ button{
+ height: 30px;
+ width: 250px;
+ }
+ </style>
+</head>
+<body>
+ <p>This is a basic form</p>
+ <div class="container">
+ <label for="name1">First Name : </label>
+ <input id="name1" type="text" required>
+ <br>
+ <label for="name2">Last Name : </label>
+ <input id="name2" type="text" required>
+ <br>
+ <label for="email">Email : </label>
+ <input id="email" type="email" required>
+ <br>
+ <label for="mNum">Mobile Num : </label>
+ <input id="mNum" type="text" required>
+ <br>
+ <button>SUBMIT</button>
+ </div>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html>
+<body>
+<form onsubmit="return validate()">
+<input type="email" id="email" placeholder="Enter email">
+<button type="submit">Submit</button>
+</form>
+<script>
+        function validate() { return document.getElementById('email').value !== ''; }
+</script>
+</body>
+</html>
+

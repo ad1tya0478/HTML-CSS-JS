@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 800px;
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 1rem;
+        }
+
+        textarea {
+            width: 100%;
+            height: 200px;
+            padding: 1rem;
+            font-size: 1.1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            resize: none;
+            transition: all 0.3s ease;
+            line-height: 1.5;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+
+        .suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            max-height: 150px;
+            overflow-y: auto;
+            display: none;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .suggestion-item {
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .suggestion-item:hover {
+            background-color: #f8f9fa;
+        }
+
+        .confidence {
+            font-size: 0.8rem;
+            color: #666;
+            background: #e9ecef;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .stats {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .correction-status {
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .auto-correct-toggle {
+            position: absolute;
+            right: 1rem;
+            bottom: 1rem;
+            padding: 0.5rem 1rem;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .auto-correct-toggle:hover {
+            background: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>AI-Powered Text Editor</h1>
+        <div class="input-group">
+            <textarea id="editor" placeholder="Start typing... Auto-correction is enabled"></textarea>
+            <div id="suggestions" class="suggestions"></div>
+            <div id="correction-status" class="correction-status"></div>
+            <button id="auto-correct-toggle" class="auto-correct-toggle">Auto-correct: ON</button>
+        </div>
+        <div class="stats">
+            <span>Words: <span id="wordCount">0</span></span>
+            <span>Corrections: <span id="correctionCount">0</span></span>
+        </div>
+    </div>
+
+    <script>
+        // Enhanced dictionary with more words and common mistakes
+        const dictionary = {
+            // Common misspellings
+            'teh': 'the',
+            'recieve': 'receive',
+            'occurence': 'occurrence',
+            'seperate': 'separate',
+            'definately': 'definitely',
+            'accomodate': 'accommodate',
+            'begining': 'beginning',
+            'belive': 'believe',
+            'freind': 'friend',
+            'independant': 'independent',
+            'knowlege': 'knowledge',
+            'neccessary': 'necessary',
+            'occasionaly': 'occasionally',
+            'persistant': 'persistent',
+            'publically': 'publicly',
+            'questionaire': 'questionnaire',
+            'relevent': 'relevant',
+            'succesful': 'successful',
+            'tommorrow': 'tomorrow',
+            'untill': 'until',
+            // Technical terms
+            'javascipt': 'javascript',
+            'pytohn': 'python',
+            'databse': 'database',
+            'frmework': 'framework',
+            // Common typos
+            'cant': "can't",
+            'dont': "don't",
+            'wouldnt': "wouldn't",
+            'shouldnt': "shouldn't",
+            'couldnt': "couldn't",
+            'im': "I'm",
+            'ive': "I've",
+            'id': "I'd",
+            'youre': "you're",
+            'theyre': "they're",
+            'wasnt': "wasn't",
+            'didnt': "didn't",
+            'isnt': "isn't",
+            'arent': "aren't",
+            'hasnt': "hasn't",
+            'havent': "haven't",
+            'werent': "weren't",
+            'wont': "won't",
+            // Common word confusion
+            'their': 'there',
+            'there': 'their',
+            'theyre': "they're",
+            'your': "you're",
+            'youre': "your",
+            'its': "it's",
+            'whose': "who's",
+            'whos': "whose",
+            'affect': "effect",
+            'effect': "affect",
+            // Add many more word pairs here...
+        };
+
+        // Enhanced Levenshtein distance function with weight factors
+        function enhancedLevenshteinDistance(a, b) {
+            if (a.length === 0) return b.length;
+            if (b.length === 0) return a.length;
+
+            const matrix = [];
+
+            for (let i = 0; i <= b.length; i++) {
+                matrix[i] = [i];
+            }
+
+            for (let j = 0; j <= a.length; j++) {
+                matrix[0][j] = j;
+            }
+
+            for (let i = 1; i <= b.length; i++) {
+                for (let j = 1; j <= a.length; j++) {
+                    const weight = a.charAt(j - 1).toLowerCase() === b.charAt(i - 1).toLowerCase() ? 0 : 1;
+                    matrix[i][j] = Math.min(
+                        matrix[i - 1][j - 1] + weight, // substitution
+                        matrix[i][j - 1] + 1,          // insertion
+                        matrix[i - 1][j] + 1           // deletion
+                    );
+                }
+            }
+
+            return matrix[b.length][a.length];
+        }
+
+        // Function to find similar words with confidence scores
+        function findSimilarWords(word) {
+            const suggestions = [];
+            const maxDistance = Math.min(3, Math.floor(word.length / 2));
+
+            for (const [dictWord, correctWord] of Object.entries(dictionary)) {
+                const distance = enhancedLevenshteinDistance(word.toLowerCase(), dictWord.toLowerCase());
+                const confidence = 1 - (distance / Math.max(word.length, dictWord.length));
+                
+                if (distance <= maxDistance || confidence > 0.7) {
+                    suggestions.push({
+                        word: correctWord,
+                        confidence: Math.round(confidence * 100)
+                    });
+                }
+            }
+
+            return suggestions.sort((a, b) => b.confidence - a.confidence);
+        }
+
+        // Initialize elements
+        const editor = document.getElementById('editor');
+        const suggestions = document.getElementById('suggestions');
+        const wordCount = document.getElementById('wordCount');
+        const correctionCount = document.getElementById('correctionCount');
+        const correctionStatus = document.getElementById('correction-status');
+        const autoCorrectToggle = document.getElementById('auto-correct-toggle');
+
+        let corrections = 0;
+        let isAutoCorrectEnabled = true;
+
+        // Update word count
+        function updateWordCount() {
+            const text = editor.value.trim();
+            const count = text ? text.split(/\s+/).length : 0;
+            wordCount.textContent = count;
+        }
+
+        // Function to update correction status
+        function updateCorrectionStatus(message) {
+            correctionStatus.textContent = message;
+            setTimeout(() => {
+                correctionStatus.textContent = '';
+            }, 2000);
+        }
+
+        // Handle input events
+        editor.addEventListener('input', (e) => {
+            updateWordCount();
+
+            const text = e.target.value;
+            const words = text.split(/\s+/);
+            const lastWord = words[words.length - 1];
+
+            if (lastWord) {
+                const similarWords = findSimilarWords(lastWord);
+                
+                if (similarWords.length > 0) {
+                    if (isAutoCorrectEnabled && similarWords[0].confidence > 90) {
+                        // Auto-correct the word
+                        words[words.length - 1] = similarWords[0].word;
+                        editor.value = words.join(' ');
+                        corrections++;
+                        correctionCount.textContent = corrections;
+                        updateCorrectionStatus(`Corrected: ${lastWord} → ${similarWords[0].word}`);
+                    } else {
+                        // Show suggestions
+                        suggestions.innerHTML = '';
+                        similarWords.forEach(({ word, confidence }) => {
+                            const div = document.createElement('div');
+                            div.className = 'suggestion-item';
+                            div.innerHTML = `
+                                <span>${word}</span>
+                                <span class="confidence">${confidence}%</span>
+                            `;
+                            div.addEventListener('click', () => {
+                                words[words.length - 1] = word;
+                                editor.value = words.join(' ');
+                                suggestions.style.display = 'none';
+                                corrections++;
+                                correctionCount.textContent = corrections;
+                                updateCorrectionStatus(`Corrected: ${lastWord} → ${word}`);
+                            });
+                            suggestions.appendChild(div);
+                        });
+                        suggestions.style.display = 'block';
+                    }
+                } else {
+                    suggestions.style.display = 'none';
+                }
+            } else {
+                suggestions.style.display = 'none';
+            }
+        });
+
+        // Toggle auto-correct
+        autoCorrectToggle.addEventListener('click', () => {
+            isAutoCorrectEnabled = !isAutoCorrectEnabled;
+            autoCorrectToggle.textContent = `Auto-correct: ${isAutoCorrectEnabled ? 'ON' : 'OFF'}`;
+            autoCorrectToggle.style.background = isAutoCorrectEnabled ? '#3498db' : '#95a5a6';
+            updateCorrectionStatus(`Auto-correct ${isAutoCorrectEnabled ? 'enabled' : 'disabled'}`);
+        });
+
+        // Close suggestions when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!suggestions.contains(e.target) && e.target !== editor) {
+                suggestions.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

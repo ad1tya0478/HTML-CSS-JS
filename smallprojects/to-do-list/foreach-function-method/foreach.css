@@ -1,0 +1,146 @@
+body {
+    font-family: Arial;
+    background-color: #0f0f1a;
+}
+
+.todo-grid,
+.todo-input-grid {
+    display: grid;
+    grid-template-columns: 200px 150px 100px;
+    column-gap: 10px;
+    row-gap: 10px;
+    align-items: center;
+}
+.todo-input-grid {
+    margin-bottom: 10px;
+    align-items: stretch;
+}
+.name-input,
+.due-date-input {
+    font-size: 15px;
+    padding: 6px;
+}
+.name-input{
+    font-size: 15px;
+    padding: 6px;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 0 0 0 transparent;
+    background-color: #191337;
+    border-radius: 10px;
+    border-style: dotted;
+    color: #cfcfcf;
+}
+
+.name-input:hover{
+    box-shadow: 0 0 10px 2px #0f0f1a;
+    transform: scale(1.05);
+}
+
+.add-todo-button {
+    background-color: green;
+    color: white;
+    border: none;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.delete-button {
+    background-color: darkred;
+    color: white;
+    border: none;
+    font-size: 15px;
+    cursor: pointer;
+    padding: 10px 20px;
+    transition: all 0.2s ease;
+    box-shadow: 0 0 5px #8b0000;
+}
+
+.delete-button:hover{
+    background-color: #8b0000;
+    transform: scale(1.05);
+}
+
+.elements{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 60px 100px 40px 100px;
+    background-color:#2a2a40;
+    gap: 20px;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    max-width: 500px;
+    margin: auto;
+    margin-top: 100px;
+}
+.to-do, p{
+    font-size: 40px;
+    color: #00ffcc;
+    font-weight: bold;
+}
+.enter-tasks{
+    font-size: 20px;
+}
+
+.name-input:focus {
+    outline: none;
+    box-shadow: 0 0 10px 2px #00ffcc;
+    transform: scale(1.02);
+}
+
+.name-input::placeholder {
+    color: #cfcfcf;
+    font-style: italic;
+    font-weight: bold;
+}
+.due-date-input{
+    font-size: 15px;
+    padding: 6px;
+    background-color: #191337;
+    border-radius: 10px;
+    border-style: dotted;
+    color: #cfcfcf;
+    font-style: italic;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s ease;
+}
+.due-date-input:hover{
+    box-shadow: 0 0 10px 2px #00ffcc;
+    transform: scale(1.05);
+}
+
+.add-todo-button {
+    transition: all 0.2s ease;
+    box-shadow: 0 0 5px #00aa00;
+}
+.add-todo-button:hover {
+    background-color: #006400;
+    transform: scale(1.05);
+}
+
+
+.js-todo-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.task-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1f1f30;
+    padding: 12px 20px;
+    border-radius: 10px;
+    color: #00ffcc;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+    font-size: 16px;
+    gap: 20px;
+}
+
+
+

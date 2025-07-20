@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Objects</title>
+</head>
+<body>
+    <script>
+        /*
+        const product = {
+            name: 'Mobile stand',
+            price: 1090
+        };
+        console.log(product);
+        console.log(product.name);
+        console.log(product.price);
+
+        product.name = 'Gimble';
+        console.log(product);
+
+        product.newone = 'hello';
+        console.log(product);
+
+        delete product.newone;
+        console.log(product);
+        */
+
+        // the console in console.log is an object, a built in object
+        // math in mwth.random is also a built in object
+        // JSON(another built in object) = javascript object notation
+        /* const product2 = {
+            name: 'Shirt',
+            'delivery-time': '2 days',
+            rating: {
+                stars: 4.5,
+                count: 87
+            },
+            fun: function function1(){
+                console.log('function inside object ');
+            }
+            };
+        console.log(product2);
+        console.log(product2.name);
+        console.log(product2['name']);
+        console.log(product2['delivery-time']);
+
+        console.log(product2.rating.count);
+        product2.fun();
+
+        console.log(typeof console);
+        // JS object -> JSON
+        console.log(JSON.stringify(product2));
+        // JSON -> JS object
+        const jsonstring = JSON.stringify(product2);
+        console.log(JSON.parse(jsonstring));
+
+        */
+
+        console.log('hello'.length);
+        console.log('hello'.toUpperCase());
+
+        const object1 = {
+            message: 'Good'
+        };
+
+        const object2 = object1;
+
+        object1.message = 'BAD guy!';
+        console.log(object1);
+        console.log(object2);
+
+        const object3 = {
+            message: 'BAD guy!'
+        };
+        console.log(object3 === object1);
+        console.log(object1 === object2);
+        
+        // Destructuring - easier way to take properties out of an object
+        const object4 = {
+            message: 'nice job!',
+            price: 299
+        };
+        //const message = object.message;
+        const {message,price} = object4;
+        console.log(message);
+        console.log(price);
+
+        // Short hand property
+        const object5 = {
+            // message: message
+            message
+        };
+        console.log(object5);
+
+    </script>
+</body>
+</html>
