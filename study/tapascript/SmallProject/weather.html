@@ -6,12 +6,78 @@
     <title>Weather Snap</title>
 </head>
 <body>
-    <h1>
-        ☁️ Weather App
-    </h1>
-    <input type="text" id="city-input" placeholder="Enter Location">
-    <button id="search">Get Weather</button>
-    <div id="loading"></div>
-    <div id="result"></div>
+    <div class="container">
+        <h1>
+            ☁️ Weather App
+        </h1>
+        <div class="search_form">
+            <input type="text" id="city-input" placeholder="Enter Location">
+            <button id="search">Get Weather</button>
+        </div>
+        <!-- <div id="loading"></div> -->
+        <div id="result">
+
+        </div>
+    </div>
+
+    <script>
+        const searchbtn = document.getElementById("search");
+        const results = document.getElementById("result");
+        const val = document.getElementById("city-input").value;
+        
+        searchbtn.addEventListener("click", async () => {
+            console.log("clicked")
+            const apikey = 'b6c0ebc8fcb3e08c606b925f6f48e825';
+            const city = document.getElementById("city-input").value.trim();  // we are using trim, to chop off extra spaces before or after the input.
+            
+            if(!city){
+                results.innerHTML = "Enter a location, you fool.";
+                return;
+            }
+
+            const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apikey}&units=metric`;
+
+            const res = await fetch(url);
+            const data = await res.json();
+
+            // fetch(url)
+            //     .then(response => response.json())
+            //     .then(json => {
+            //         if(json.cod==='404'){
+            //             results.innerHTML = `Not found`;
+            //         }
+            //         results.innerHTML = `
+            //             <h2> ${data.name}, ${json.sys.country} </h2>  
+            //             <p> 🌡️ Temperature: ${json.main.temp}°C </p>
+            //             <p> 🌥️ Weather: ${json.weather[0].description} </p>
+            //             <p> 🎐 Wind: ${json.wind.speed} m/s </p>
+            //         `;
+            //     })
+
+
+            
+            // data - json response from the api, dada.cod - a status code sent by openweather
+            if(data.cod == "404"){
+                results.innerHTML = "City not found";
+            } else {
+                const sunrise = new Date(data.sys.sunrise * 1000).toLocaleTimeString();
+                const sunset = new Date(data.sys.sunset * 1000).toLocaleTimeString();
+                // data.name = name of the city, data.sys.country = country code(sys is an object in api that contains these details like country code)
+                // data.main.temp = main is an object of api as well, with that we can get temperature
+                // data.weather[0].description = data.weather is an array, [0] with this we get the first object and that also adds to the description
+                // data.wind.speed = data.wind is another object that contains more features, here we are finding speed. 
+                results.innerHTML = `
+                <h2> ${data.name}, ${data.sys.country} </h2>  
+                <p> 🌡️ Temperature: ${data.main.temp}°C </p>
+                <p> 🌥️ Weather: ${data.weather[0].description} </p>
+                <p> 🎐 Wind: ${data.wind.speed} m/s </p>
+                <p> 🌅 Sunrise: ${sunrise} | 🌇 SunSet: ${sunset} </p>
+
+                `;
+            } 
+        
+
+        });
+    </script>
 </body>
 </html>
