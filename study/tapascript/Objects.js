@@ -129,38 +129,120 @@
 // STATIC METHODS // - Static methods are methods that belong to the class itself, not to the objects (instances) created from it. You call them directly on the constructor (like Object, Array, your own class).
 // You don’t call them on an instance.
 
-const target = {p:1, a:2};
-const source = {a:3, b:4};
+// const target = {p:1, a:2};
+// const source = {a:3, b:4};
 
-const returnOBJ = Object.assign(target, source);
-console.log(returnOBJ);
+// const returnOBJ = Object.assign(target, source);
+// console.log(returnOBJ);
 
 
-const obj = {name: "Aditya"};
-const obj2 = Object.assign({}, obj); // assign - static method in javascript used to copy properties from one or more source objects to a target object, obj and obj2 have the same values, but are dieeferent objects
-console.log(obj2);
-console.log(obj === obj2);
+// const obj = {name: "Aditya"};
+// const obj2 = Object.assign({}, obj); // assign - static method in javascript used to copy properties from one or more source objects to a target object, obj and obj2 have the same values, but are dieeferent objects
+// console.log(obj2);
+// console.log(obj === obj2);
 
-const obj3 = {
-    a: 1,
-    b: {c: 2}
+// const obj3 = {
+//     a: 1,
+//     b: {c: 2}
+// }
+// const obj4 = Object.assign({}, obj3);
+// console.log(obj4);
+
+// obj4.b.c = 3;
+
+// console.log(obj4.b.c);
+// console.log(obj3.b.c);   // why both are coming 3, because Object.assign() does a shallow copy, that means (a: 1) is primitive so its copied by value but (b: {c: 2}) is an object, so its copied by reference, so obj3.b and obj4.b point to the same inner object
+
+// console.log("Structured clone used: ");
+// const obj5 = structuredClone(obj3); // structuredclone() - creates a deep copy of a js object, meaning it copies everything, including nested objects and arrays -- not just the surface like Object.assign().
+
+// obj5.a = 300;
+// obj5.b.c = 30;
+
+// console.log(obj5.a); // 300
+// console.log(obj3.a); // 1
+
+// console.log(obj5.b.c); // 30
+// console.log(obj3.b.c) // 3
+
+
+// converting object to array // 
+// const myobj = {
+//     a: "Adi",
+//     b: 20
+// };
+// const myarr = Object.entries(myobj);  // .entries() is another static method, it returns an of key-value pairs from an object 
+// console.log(myarr);
+ 
+
+// // to convert array to object // 
+// const entries = new Map([
+//     ["Foo", "Bar"],
+//     ["Baz", 42],
+// ])
+// const obj = Object.fromEntries(entries);  // returns an object, also a static method, takes an iterable like a map or an array and convert it into a plain object.
+// console.log(obj);
+
+
+//// freeze method /// immutability - something that you cannot change
+// const emp = {
+//     salary: 100
+// }
+// Object.freeze(emp);  // freeze method freezes the value of key meaning it cannot be changed 
+// emp.salary = 200;
+// console.log(emp);
+
+// console.log(Object.isFrozen(emp)); // returns true or false, whether a particular object is frozen or not
+
+// seal() method //
+// const dept = {
+//     name: "finance"
+// }
+// Object.seal(dept); // in seal() method, if you use it, you cannot remove or add another key into the object, but you can modify an existting property in seal() method
+
+// dept.intern = "alex";
+// delete dept.name;
+// console.log(dept);
+
+// console.log(Object.hasOwn(dept, "name")); // checks if a property is in the object or not
+
+
+
+/// ///// OBJECT DESTRUCTURING   /////// 
+// Object destructuring is a way to unpack values from an object into individual variables, quickly and cleanly.
+
+let STUDENT = {
+    'name': "Khushi",
+    'age': 9,
+    'std': 3,
+    'subject': ['maths', 'english', 'EVS' ],
+    'parents': {
+        'Father': 'Brown Williamson',
+        'mother': 'sophia',
+        'email': 'john-parents@abcd.com'
+    },
+    'address': {     // Nested object
+        'city': "Gwalior",
+        'pin': 474005,
+        'state': "MP",
+        'country': "India"
+    }
 }
-const obj4 = Object.assign({}, obj3);
-console.log(obj4);
 
-obj4.b.c = 3;
+// const name = STUDENT.name;
+// const city = STUDENT.address.city;
+// console.log(name , city);
 
-console.log(obj4.b.c);
-console.log(obj3.b.c);   // why both are coming 3, because Object.assign() does a shallow copy, that means (a: 1) is primitive so its copied by value but (b: {c: 2}) is an object, so its copied by reference, so obj3.b and obj4.b point to the same inner object
+// shortcut 
+// const {name , address: {city}} = STUDENT;
+// console.log(name, city);
 
-console.log("Structured clone used: ");
-const obj5 = structuredClone(obj3); // structuredclone() - creates a deep copy of a js object, meaning it copies everything, including nested objects and arrays -- not just the surface like Object.assign().
+// const {name , age , meal="bread"} = STUDENT;
+// console.log(name, age, meal);
+// console.log(STUDENT);
 
-obj5.a = 300;
-obj5.b.c = 30;
+// const {subject, numberOfSubject = subject.length} = STUDENT;
+// console.log(subject, numberOfSubject);
 
-console.log(obj5.a); // 300
-console.log(obj3.a); // 1
+const 
 
-console.log(obj5.b.c); // 30
-console.log(obj3.b.c) // 3
