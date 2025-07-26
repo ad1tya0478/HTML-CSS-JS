@@ -244,5 +244,18 @@ let STUDENT = {
 // const {subject, numberOfSubject = subject.length} = STUDENT;
 // console.log(subject, numberOfSubject);
 
-const 
+// aliases // 
+const {std: standard} = STUDENT;  // now we cannot use std
+console.log(standard);
+
+
+const {address: {pin}} = STUDENT;
+console.log(pin);
+
+function sendEmail({parents: {email}}){
+    console.log(`Send an email to ${email}`);
+}
+sendEmail(STUDENT);
+
+
 
