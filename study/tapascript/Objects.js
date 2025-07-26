@@ -245,17 +245,127 @@ let STUDENT = {
 // console.log(subject, numberOfSubject);
 
 // aliases // 
-const {std: standard} = STUDENT;  // now we cannot use std
-console.log(standard);
+// const {std: standard} = STUDENT;  // now we cannot use std
+// console.log(standard);
 
 
-const {address: {pin}} = STUDENT;
-console.log(pin);
+// const {address: {pin}} = STUDENT;
+// console.log(pin);
 
-function sendEmail({parents: {email}}){
-    console.log(`Send an email to ${email}`);
-}
-sendEmail(STUDENT);
+// function sendEmail({parents: {email}}){
+//     console.log(`Send an email to ${email}`);
+// }
+// sendEmail(STUDENT);
+
+// const students = [
+//     {
+//         'name': 'Aditya',
+//         'grade': 'A++'
+//     },
+//     {
+//         'name': 'Anirudh',
+//         'grade': 'A++'
+//     },
+//     {
+//         'name': 'Khushi',
+//         'grade': 'A++'
+//     }
+// ];
+
+// for(let {name} of students){
+//     console.log(name);
+// }
+
+
+
+// const empl = {
+//     sal: {
+//         bonus: 300
+//     }
+// }
+
+// console.log(empl.department); // undefined
+// console.log(empl.department.name); 
+
+// const name = empl.department?.name;
+// console.log(name);
+
+
+//  Q.1 
+// const user = {
+//     name: "Alex",
+//     age: undefined
+// };
+// console.log(user.age ?? "not provided"); // output - not provided
+
+
+// Q.2 
+// const obj = Object.freeze({ a: 1 });
+// obj.a = 2;
+// console.log(obj.a); // output - 1
+
+// Q.3 
+// const person = {
+//   name: "Tapas",
+//   company: {
+//     name: "tapaScript",
+//     location: {
+//       city: "Bangalore",
+//       zip: "94107"
+//     }
+//   }
+// };
+
+// const {name, company: {name: name1}, company: {location: {city} }} = person;
+// console.log(name, name1, city);
+
+
+// Q.4 Store student details in an object (name, age, grades).
+// Implement a method to calculate the average grade.
+// const student = {
+//     name: 'Aditya',
+//     age: 20,
+//     grades: [10,12,8,15,20],
+
+//     averageGrade() {
+//         let sum = 0;
+//         for(let i = 0; i<this.grades.length;i++){
+//             sum += this.grades[i];
+//         }
+//         return (sum/this.grades.length).toFixed(2);
+//     }
+// }
+// console.log("Nmae: ", student.name);
+// console.log("Age: ", student.age);
+// console.log("Average Grade: ", student.averageGrade());
+
+
+// Q.5
+// const book = {
+//     books: {
+//         "Game of thrones": 3,
+//         "Atomic Habits": 5,
+//         "1984": 0
+//     },
+
+//     availability(title){
+//         return this.books[title] > 0
+//         ? `${title} is available (${this.books[title]} in stock).` : `${title} is out of stock`;
+//     },
+
+//     restock(title, count){
+//         if(this.books[title] != undefined){
+//             this.books[title] += count;
+//         } else {
+//             this.books[title] = count;
+//         }
+//         return `${title} now has ${this.books[title]} copies.`
+//     }
+// };
+
+// console.log(book.availability("1984"));
+// console.log(book.restock("1984", 10));
+// console.log(book.availability("1984"));
 
 
 
