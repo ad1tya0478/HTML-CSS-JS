@@ -161,3 +161,15 @@ const jerry = new Cartoon("jerry", "mouse");
 tomcartoon.log();
 jerry.log();
 
+
+// some simple problem finding question 
+const obj = {
+  name: "Tom",
+  greet: function () {
+    console.log(`Hello, ${this.name}!`);
+  },
+};
+
+const greetFn = obj.greet();
+
+
