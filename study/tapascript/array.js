@@ -22,4 +22,30 @@ console.log(salad === anothersalad); // this is false because, salad and another
 
 
 const two = new Array(2);
-console.log(two);
+console.log(two); // Because new Array(n) is special, it doesn’t fill the array, it just reserves space. the cnstructor method behaves differently based on how many arguments we pass. so if you pass multiple arguments, it will fill the array. 1 argument -> empty slots in array | multiple arguments -> behaves like a normal array
+
+console.log(salad[0]);
+console.log(salad[2]); 
+
+for(let i=0;i<salad.length;i++){
+    console.log(`Element at index ${i} is ${salad[i]}`);
+}
+
+// adding elements to the array // 
+
+// push() - it add the element to the end of the array
+const ret = salad.push('🍠');
+console.log(ret); // after adding the alement push method returns the total number of array
+console.log(salad);
+
+// unshift() - adds the element at the start of the array
+const unret = salad.unshift('🫑');
+console.log(unret);
+console.log(salad);
+
+// Remove elements // 
+
+// pop() - removes the element from the end
+console.log(salad);
+salad.pop();
+console.log(salad);
