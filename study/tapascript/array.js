@@ -34,18 +34,64 @@ for(let i=0;i<salad.length;i++){
 // adding elements to the array // 
 
 // push() - it add the element to the end of the array
-const ret = salad.push('🍠');
-console.log(ret); // after adding the alement push method returns the total number of array
-console.log(salad);
+// const ret = salad.push('🍠');
+// console.log(ret); // after adding the alement push method returns the total number of array
+// console.log(salad);
 
 // unshift() - adds the element at the start of the array
-const unret = salad.unshift('🫑');
-console.log(unret);
-console.log(salad);
+// const unret = salad.unshift('🫑');
+// console.log(unret);
+// console.log(salad);
 
 // Remove elements // 
 
 // pop() - removes the element from the end
-console.log(salad);
-salad.pop();
-console.log(salad);
+// console.log(salad);
+// const popret = salad.pop(); // now after removing the last element pop() methods returns the element that was removed
+// console.log(popret);
+// console.log(salad);
+
+// // shift() - removes the element from the beginning
+// console.log(salad);
+// const shret = salad.shift();  // the vice versa of pop()
+// console.log(shret);
+// console.log(salad);
+
+// slice() - creates a copy 
+// const Scopy =  salad.slice();
+// console.log("Salad Before Copy: ", salad);
+// console.log(Scopy);
+// console.log(salad === Scopy); // false 
+
+// const a = Array.isArray(salad);
+// console.log(a);
+
+
+// Array destructuring // - we can assign a default value to a variable while destructuring, we can skip a value 
+/*
+const tomato = salad[0];
+const carrot = salad[2];
+const peas = salad[3];
+*/
+
+// const [a, b, c] = ['🍅', '🥗', '🥕'];
+// console.log(a, b, c); 
+
+// const [tomato, mushroom = '🍄'] = ['🍅'];
+// console.log(mushroom, tomato);
+
+// skipping a value 
+const [a, , c] = ['tomato', 'mushroom', 'carrot'];
+
+// nested array 
+const ar = [1, 2, 3, ['potato', 'tomato', 'peas']]; 
+
+const n = ar[3];
+const z = n[2];
+
+ar[3][2];
+
+
+// rest parameter and spread
+
+
