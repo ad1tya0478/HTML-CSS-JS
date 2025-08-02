@@ -160,3 +160,24 @@ try{
 // } 
 
 
+// simple questions 
+
+// let bal = 1000;
+
+// function ProcessPayment(amount){
+//     try{
+//         if(amount<=0){
+//             throw new Error("Amount must be positive");
+//         }
+//         if(amount > bal) {
+//             throw new Error("Amount must be less than Balance");
+//         }
+//     } catch(error){
+//         console.error("Payment Falied:", err.message);
+//     }
+// }
+
+
+
+
+
