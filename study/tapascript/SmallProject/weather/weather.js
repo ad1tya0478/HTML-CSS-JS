@@ -1,27 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather Snap</title>
-</head>
-<body>
-    <div class="container">
-        <h1>
-            ☁️ Weather App
-        </h1>
-        <div class="search_form">
-            <input type="text" id="city-input" placeholder="Enter Location">
-            <button id="search">Get Weather</button>
-        </div>
-        <!-- <div id="loading"></div> -->
-        <div id="result">
-
-        </div>
-    </div>
-
-    <script>
-        const searchbtn = document.getElementById("search");
+const searchbtn = document.getElementById("search");
         const results = document.getElementById("result");
         const val = document.getElementById("city-input").value;
         
@@ -39,6 +16,8 @@
 
             const res = await fetch(url);
             const data = await res.json();
+            const condition = data.weather[0].main; 
+            updateBackground(condition);
 
             // fetch(url)
             //     .then(response => response.json())
@@ -67,17 +46,38 @@
                 // data.weather[0].description = data.weather is an array, [0] with this we get the first object and that also adds to the description
                 // data.wind.speed = data.wind is another object that contains more features, here we are finding speed. 
                 results.innerHTML = `
+                <div class="data">
                 <h2> ${data.name}, ${data.sys.country} </h2>  
                 <p> 🌡️ Temperature: ${data.main.temp}°C </p>
                 <p> 🌥️ Weather: ${data.weather[0].description} </p>
                 <p> 🎐 Wind: ${data.wind.speed} m/s </p>
                 <p> 🌅 Sunrise: ${sunrise} | 🌇 SunSet: ${sunset} </p>
-
+                </div>
                 `;
             } 
         
 
         });
-    </script>
-</body>
-</html>
+
+function updateBackground(condition){
+    switch(condition){
+        case 'Clear' : 
+            document.body.style.background = "linear-gradient(to right, #fceabb, #f8b500)";
+            break;
+        case 'Rain':
+            document.body.style.background = "linear-gradient(to right, #2c3e50, #4ca1af)";
+            break;
+        case 'Snow':
+            document.body.style.background = "linear-gradient(to right, #e6e9f0, #eef1f5)";
+            break;
+        case 'Clouds':
+            document.body.style.background = "linear-gradient(to right, #bdc3c7, #2c3e50)";
+            break;
+        case 'Thunderstorm':
+            document.body.style.background = "linear-gradient(to right, #434343, #000000)";
+            break;
+        default:
+            document.body.style.background = "linear-gradient(to right, #83a4d4, #b6fbff)";
+            break;
+    }
+}
