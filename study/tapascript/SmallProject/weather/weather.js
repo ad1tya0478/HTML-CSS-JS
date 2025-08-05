@@ -16,8 +16,8 @@ const searchbtn = document.getElementById("search");
 
             const res = await fetch(url);
             const data = await res.json();
-            const condition = data.weather[0].main; 
-            updateBackground(condition);
+
+           
 
             // fetch(url)
             //     .then(response => response.json())
@@ -39,6 +39,10 @@ const searchbtn = document.getElementById("search");
             if(data.cod == "404"){
                 results.innerHTML = "City not found";
             } else {
+                
+                 const condition = data.weather[0].main; 
+                updateBackground(condition);
+
                 const sunrise = new Date(data.sys.sunrise * 1000).toLocaleTimeString();
                 const sunset = new Date(data.sys.sunset * 1000).toLocaleTimeString();
                 // data.name = name of the city, data.sys.country = country code(sys is an object in api that contains these details like country code)

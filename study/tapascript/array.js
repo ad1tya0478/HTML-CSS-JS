@@ -92,6 +92,37 @@ const z = n[2];
 ar[3][2];
 
 
-// rest parameter and spread
+// rest parameter and spread 
+/// Rest and spread operator /// 
+/// rest - we use it when we want to collect multiple values into one. operator - [ ... ]
+// example ...names grabs all the arguments and stores them in one array called names.
+// Spread - we use it when you want to unpack values from an array or object. (unpacks to many) Operator - ( ... )
+
+const [tomato, ...rest] = ['🍅', '🥗', '🥕', '🥒'];
+console.log(tomato);
+console.log(rest);
+// we have to use this operator at the left side of the assignment operator
+
+// const mySalad = ['tomato', 'onion', 'Carrot', 'cucumber'];
+// const myScopy = [...mySalad, 'salad', 'Vegeies'];
+// console.log(mySalad);
+// console.log(myScopy);
+
+// // Swapping //
+
+// let first = '😂';
+// let sec = '💪';
+// [first, sec] = [sec, first];
+
+// console.log(first);
+// console.log(sec);
+
+// // merge // 
+// const emotions = ['better', 'good'];
+// const veggies = ['🥕', '🥔', '🍆', '🍠']
+
+// const merge = [...emotions, ...veggies];
+// console.log(merge);
+
 
 
