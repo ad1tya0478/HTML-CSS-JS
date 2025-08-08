@@ -124,5 +124,71 @@ console.log(rest);
 // const merge = [...emotions, ...veggies];
 // console.log(merge);
 
+// length // 
+
+// const arr1 = [11, 22, 33];
+// const arr2 = new Array(7);
+// console.log(arr1.length);
+// console.log(arr2.length);
+
+// arr1.length = 2;
+// console.log(arr1);
+
+// concat method // - joins array wihtout touching the originals, simply it makes a new array
+
+// const first = [1,2,3];
+// const sec = [4,5,6];
+// const third = [7,8,9];
+
+// const merge = first.concat(sec, third);
+// console.log(merge);
+
+// join // - turns an array into a string with a separator you choose, makes a string.
+
+// const emotions = ['angry', 'sad', 'happy', 'depressed'];
+
+// const join = emotions.join("<=>");
+// console.log(join);
+
+// [].join(); // return empty string ""
 
 
+// fill // - changes the original array. Stuffs an array with the value you give it. Overwrites everything, unless you tell it where to start and drop.
+
+// const colours = ['orange', 'red', 'yellow', 'blue'];
+
+// colours.fill("pink");
+// console.log(colours);
+
+// colours.fill('Purple', 0, 1);
+// console.log(colours);
+
+// includes() // - checks if an array has a certain value or not, gives you true or false.
+
+// const arr = [1,2,3,4,5];
+// console.log(arr.includes(2));  // true
+// console.log(arr.includes(7));  // false
+
+
+// indexof() // - tells you the first position of a value in an array. If its not there you get -1.
+
+// const arr1 = ['john', 'alex', 'khushi', 'bob'];
+
+// console.log(arr1.indexOf('khushi')); // 2
+// console.log(arr1.indexOf('adi'));    // -1
+
+// console.log(arr1.lastIndexOf('bob')); // 3
+
+
+// reverse // - flips the array in place, last becomes first, first becomes last.
+
+// const names = ['adi', 'khushi','anni', 'ayaan', 'abhi'];
+// console.log(names.reverse());
+
+// sort() // - arranges array elements as strings by default, so numbers can get strange.
+
+const  names = ['adi', 'khushi','anni', 'ayaan', 'abhi'];
+console.log(names.sort());
+
+const num = [55,2,6,2,88,65];
+console.log(num.sort((a,b) => a - b));
