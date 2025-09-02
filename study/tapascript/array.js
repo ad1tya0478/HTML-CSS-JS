@@ -190,5 +190,12 @@ console.log(rest);
 const  names = ['adi', 'khushi','anni', 'ayaan', 'abhi'];
 console.log(names.sort());
 
+// sort() takes a comparison function (a, b) that decides the order.a === b ? 0 If two numbers are the same, return 0 → means leave them as they are. a > b ? -1 : 1, If a is bigger than b, return -1 → means put a before b. Else, return 1 → means put b before a.This logic makes larger numbers come first, smaller ones later.
 const num = [55,2,6,2,88,65];
-console.log(num.sort((a,b) => a - b));
+console.log(num.sort((a,b) => a === b ? 0: a > b ? -1 : 1));
+
+
+const num1 = [34,3,65,23,45,11,10];
+console.log(num1.sort((a, b) => a - b));
+
+
