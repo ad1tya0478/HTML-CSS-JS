@@ -69,3 +69,33 @@ Vechicle.prototype.wheelNumber = function(){
 }
 console.log(bmw);
 
+// Protoype chain 
+// bmw
+//    [[Prototype]] ---> Car.prototype
+//                           [[Prototype]] ---> Object.prototype
+//                                                     [[Prototype]] ---> null
+
+// So the prototype chain is just a ladder of inheritance that JS climbs until it finds what you asked for.
+
+// ----
+
+function Car1(model, color, year, owner){
+    this.model = model;
+    this.color = color;
+    this.year = year;
+    this.wheelNumber = function(){
+        return 4;
+    }
+    this.owner = owner;
+}
+class Car1 {
+    construtor(model, color, year, owner){
+    this.model = model;
+    this.color = color;
+    this.year = year;
+    this.owner = owner;
+    }
+    wheelNumber() {
+        return 4;
+    }
+}
