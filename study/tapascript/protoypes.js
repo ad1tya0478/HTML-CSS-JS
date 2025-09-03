@@ -98,4 +98,5 @@ class Car1 {
     wheelNumber() {
         return 4;
     }
+
 }
