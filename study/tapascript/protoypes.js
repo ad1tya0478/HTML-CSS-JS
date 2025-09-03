@@ -53,4 +53,19 @@ console.log(tapaCar);
 tapas.age = 20;
 console.log(tapaCar);
 
+// prototype - Every object in JS has a hidden link called prototype. It points to another object - the prototype. If you try to access a property or method on an object and it's not there, JS climbs up that protoype chain until it finds it. 
+// Main reason to use - Instead of giving every object its own copy of a function, we put shared functions in the prototype. That way, all instances reuse the same method and it will reduce memory usage.
+
+function Vechicle(model, color, year) {
+    this.model = model;
+    this.color = color;
+    this.year = year;
+}
+const bmw = new Vechicle("BMW", "Dark blue", 2025);
+console.log(bmw);
+
+Vechicle.prototype.wheelNumber = function(){
+    return 4;
+}
+console.log(bmw);
 
